@@ -1,0 +1,202 @@
+/* ===== HOW IT WORKS ===== */
+.how-it-works { background: var(--bg2); }
+
+.how-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+.how-step {
+  flex: 1;
+  min-width: 200px;
+  max-width: 260px;
+  text-align: center;
+  padding: 32px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  position: relative;
+}
+.how-step__num {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 28px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 0.85rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.how-step__icon { font-size: 2.8rem; margin-bottom: 12px; }
+.how-step h3 { font-size: 1.05rem; font-weight: 900; margin-bottom: 8px; color: var(--text); }
+.how-step p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; }
+
+.how-step__arrow {
+  font-size: 1.4rem;
+  color: var(--accent3);
+  padding: 0 12px;
+  flex-shrink: 0;
+}
+
+/* ===== ORDER LAYOUT ===== */
+.order-form-section { background: var(--bg); }
+
+.order-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 32px;
+  align-items: start;
+}
+
+.order-form-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+}
+
+/* ===== SECTION LABEL ===== */
+.order-section-label {
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ===== CONTACT OPTIONS ===== */
+.contact-options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.contact-option {
+  cursor: pointer;
+}
+.contact-option input[type="radio"] { display: none; }
+.contact-option span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 50px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  transition: var(--transition);
+  cursor: pointer;
+}
+.contact-option input:checked + span {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(200,82,26,0.07);
+}
+.contact-option span:hover { border-color: var(--accent3); color: var(--text); }
+
+/* ===== SIDEBAR ===== */
+.order-sidebar {
+  position: sticky;
+  top: 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.order-sidebar__card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+}
+.order-sidebar__card--popular {
+  background: linear-gradient(135deg, rgba(200,82,26,0.06), rgba(212,118,59,0.06));
+  border-color: rgba(200,82,26,0.2);
+}
+
+.order-sidebar__icon {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+.order-sidebar__card h3 {
+  font-size: 1.1rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.order-sidebar__card h4 {
+  font-size: 0.95rem;
+  font-weight: 900;
+  margin-bottom: 10px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.order-sidebar__card h4 i { color: var(--accent); }
+.order-sidebar__card p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.order-sidebar__card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.order-sidebar__card ul li {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  padding-left: 16px;
+  position: relative;
+}
+.order-sidebar__card ul li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 900;
+}
+
+/* ===== POPULAR TAGS ===== */
+.popular-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+.popular-tags span {
+  padding: 5px 12px;
+  background: rgba(200,82,26,0.1);
+  border: 1px solid rgba(200,82,26,0.2);
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .order-layout { grid-template-columns: 1fr; }
+  .order-sidebar { position: static; }
+  .how-step__arrow { display: none; }
+  .how-steps { gap: 24px; }
+}
+@media (max-width: 640px) {
+  .order-form-wrap { padding: 20px; }
+  .contact-options { gap: 8px; }
+}

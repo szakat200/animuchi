@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Товар — Animuchi</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/catalog.css" />
+  <link rel="stylesheet" href="css/product.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">
+        <span class="logo__icon">⛩</span>
+        <span class="logo__text">Animuchi</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html" class="nav__link">Главная</a>
+        <a href="catalog.html" class="nav__link active">Каталог</a>
+        <a href="order.html" class="nav__link">Под заказ</a>
+        <a href="contacts.html" class="nav__link">Контакты</a>
+      </nav>
+      <div class="header__actions">
+        <a href="cart.html" class="cart-btn">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+        <button class="burger" id="burger">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="index.html" class="nav__link">Главная</a>
+      <a href="catalog.html" class="nav__link">Каталог</a>
+      <a href="order.html" class="nav__link">Под заказ</a>
+      <a href="contacts.html" class="nav__link">Контакты</a>
+    </div>
+  </header>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <div class="container">
+      <a href="index.html">Главная</a>
+      <i class="fas fa-chevron-right"></i>
+      <a href="catalog.html">Каталог</a>
+      <i class="fas fa-chevron-right"></i>
+      <span id="breadcrumbName">Товар</span>
+    </div>
+  </div>
+
+  <!-- PRODUCT PAGE -->
+  <section class="product-section section">
+    <div class="container">
+
+      <div class="product-layout" id="productLayout">
+        <div class="loading-state">Загрузка товара...</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="logo__icon">⛩</span>
+        <span class="logo__text">Animuchi</span>
+        <p>Аниме‑магазин в Лесном</p>
+      </div>
+      <div class="footer__links">
+        <h4>Навигация</h4>
+        <a href="index.html">Главная</a>
+        <a href="catalog.html">Каталог</a>
+        <a href="order.html">Под заказ</a>
+        <a href="contacts.html">Контакты</a>
+      </div>
+      <div class="footer__contacts">
+        <h4>Контакты</h4>
+        <p><i class="fas fa-map-marker-alt"></i> Лесной, ул. Ленина 64, 2 этаж</p>
+        <p><i class="fab fa-vk"></i> <a href="https://vk.com/anim_uchi" target="_blank">vk.com/anim_uchi</a></p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2025 Animuchi. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+  <script type="module" src="js/product.js"></script>
+</body>
+</html>

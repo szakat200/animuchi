@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Под заказ — Animuchi</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/catalog.css" />
+  <link rel="stylesheet" href="css/checkout.css" />
+  <link rel="stylesheet" href="css/order.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">
+        <span class="logo__icon">⛩</span>
+        <span class="logo__text">Animuchi</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html" class="nav__link">Главная</a>
+        <a href="catalog.html" class="nav__link">Каталог</a>
+        <a href="order.html" class="nav__link active">Под заказ</a>
+        <a href="contacts.html" class="nav__link">Контакты</a>
+      </nav>
+      <div class="header__actions">
+        <a href="cart.html" class="cart-btn">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+        <button class="burger" id="burger">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="index.html" class="nav__link">Главная</a>
+      <a href="catalog.html" class="nav__link">Каталог</a>
+      <a href="order.html" class="nav__link">Под заказ</a>
+      <a href="contacts.html" class="nav__link">Контакты</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <h1 class="page-hero__title">🔍 Под заказ</h1>
+      <p class="page-hero__desc">Не нашёл нужный товар? Опиши — мы найдём и привезём!</p>
+    </div>
+  </section>
+
+  <!-- КАК ЭТО РАБОТАЕТ -->
+  <section class="how-it-works section">
+    <div class="container">
+      <h2 class="section__title">Как это работает</h2>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="how-step__num">1</div>
+          <div class="how-step__icon">📝</div>
+          <h3>Описываешь</h3>
+          <p>Заполняешь форму — название аниме, персонаж, тип товара и любые детали</p>
+        </div>
+        <div class="how-step__arrow"><i class="fas fa-chevron-right"></i></div>
+        <div class="how-step">
+          <div class="how-step__num">2</div>
+          <div class="how-step__icon">🔎</div>
+          <h3>Мы ищем</h3>
+          <p>Связываемся с тобой, уточняем детали и находим нужный товар у поставщиков</p>
+        </div>
+        <div class="how-step__arrow"><i class="fas fa-chevron-right"></i></div>
+        <div class="how-step">
+          <div class="how-step__num">3</div>
+          <div class="how-step__icon">📦</div>
+          <h3>Привозим</h3>
+          <p>Заказываем и доставляем тебе — самовывоз в Лесном или отправка по России</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ФОРМА -->
+  <section class="order-form-section section">
+    <div class="container">
+      <div class="order-layout">
+
+        <div class="order-form-wrap">
+          <h2 class="checkout-step-block__title" style="margin-bottom:28px;">
+            <span><i class="fas fa-search" style="font-size:0.9rem;"></i></span>
+            Заявка на поиск товара
+          </h2>
+
+          <form id="orderForm" novalidate>
+
+            <!-- Контактные данные -->
+            <div class="order-section-label">Контактные данные</div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="oFirstName">Имя <span class="required">*</span></label>
+                <input type="text" id="oFirstName" placeholder="Например: Алексей" />
+                <span class="field-error" id="oFirstNameError"></span>
+              </div>
+              <div class="form-group">
+                <label for="oPhone">Телефон <span class="required">*</span></label>
+                <input type="tel" id="oPhone" placeholder="+7 (___) ___-__-__" />
+                <span class="field-error" id="oPhoneError"></span>
+              </div>
+              <div class="form-group form-group--full">
+                <label for="oContact">Как удобнее связаться?</label>
+                <div class="contact-options">
+                  <label class="contact-option">
+                    <input type="radio" name="contactWay" value="phone" checked />
+                    <span><i class="fas fa-phone"></i> Звонок</span>
+                  </label>
+                  <label class="contact-option">
+                    <input type="radio" name="contactWay" value="vk" />
+                    <span><i class="fab fa-vk"></i> ВКонтакте</span>
+                  </label>
+                  <label class="contact-option">
+                    <input type="radio" name="contactWay" value="whatsapp" />
+                    <span><i class="fab fa-whatsapp"></i> WhatsApp</span>
+                  </label>
+                  <label class="contact-option">
+                    <input type="radio" name="contactWay" value="telegram" />
+                    <span><i class="fab fa-telegram"></i> Telegram</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Описание товара -->
+            <div class="order-section-label" style="margin-top:8px;">Что ищешь?</div>
+            <div class="form-grid">
+              <div class="form-group form-group--full">
+                <label for="oAnime">Аниме / игра / тайтл <span class="required">*</span></label>
+                <input type="text" id="oAnime" placeholder="Например: Атака Титанов, Наруто, Геншин..." />
+                <span class="field-error" id="oAnimeError"></span>
+              </div>
+              <div class="form-group form-group--full">
+                <label for="oCharacter">Персонаж (если важно)</label>
+                <input type="text" id="oCharacter" placeholder="Например: Леви, Микаса, Итачи..." />
+              </div>
+              <div class="form-group">
+                <label for="oType">Тип товара <span class="required">*</span></label>
+                <select id="oType">
+                  <option value="">— Выбери тип —</option>
+                  <option value="figure">Фигурка</option>
+                  <option value="poster">Постер / картина</option>
+                  <option value="pendant">Кулон / украшение</option>
+                  <option value="accessory">Аксессуар / брелок</option>
+                  <option value="cosplay">Косплей-элемент</option>
+                  <option value="kpop">K-Pop мерч</option>
+                  <option value="other">Другое</option>
+                </select>
+                <span class="field-error" id="oTypeError"></span>
+              </div>
+              <div class="form-group">
+                <label for="oBudget">Примерный бюджет</label>
+                <select id="oBudget">
+                  <option value="">— Не важно —</option>
+                  <option value="up500">До 500 ₽</option>
+                  <option value="500-1500">500 — 1 500 ₽</option>
+                  <option value="1500-3000">1 500 — 3 000 ₽</option>
+                  <option value="3000-5000">3 000 — 5 000 ₽</option>
+                  <option value="5000+">Свыше 5 000 ₽</option>
+                </select>
+              </div>
+              <div class="form-group form-group--full">
+                <label for="oDesc">Подробное описание <span class="required">*</span></label>
+                <textarea id="oDesc" rows="4" placeholder="Опиши как можно подробнее: размер, цвет, производитель, ссылка на похожий товар — всё что поможет найти именно то, что нужно"></textarea>
+                <span class="field-error" id="oDescError"></span>
+              </div>
+            </div>
+
+            <!-- Доставка -->
+            <div class="order-section-label" style="margin-top:8px;">Доставка</div>
+            <div class="delivery-options" style="margin-bottom:24px;">
+              <label class="delivery-option">
+                <input type="radio" name="oDelivery" value="pickup" checked />
+                <div class="delivery-option__card">
+                  <div class="delivery-option__icon"><i class="fas fa-store"></i></div>
+                  <div class="delivery-option__info">
+                    <div class="delivery-option__name">Самовывоз</div>
+                    <div class="delivery-option__desc">Лесной, ул. Ленина 64, 2 этаж</div>
+                  </div>
+                </div>
+              </label>
+              <label class="delivery-option">
+                <input type="radio" name="oDelivery" value="delivery" />
+                <div class="delivery-option__card">
+                  <div class="delivery-option__icon"><i class="fas fa-truck"></i></div>
+                  <div class="delivery-option__info">
+                    <div class="delivery-option__name">Доставка по России</div>
+                    <div class="delivery-option__desc">Почта России или СДЭК — стоимость уточняется</div>
+                  </div>
+                </div>
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center;font-size:1.05rem;padding:16px;">
+              <i class="fas fa-paper-plane"></i> Отправить заявку
+            </button>
+
+          </form>
+        </div>
+
+        <!-- БОКОВАЯ ПАНЕЛЬ -->
+        <div class="order-sidebar">
+          <div class="order-sidebar__card">
+            <div class="order-sidebar__icon">🦊</div>
+            <h3>Найдём всё!</h3>
+            <p>Работаем с поставщиками аниме-мерча и поможем найти даже редкие вещи по любимым тайтлам.</p>
+          </div>
+
+          <div class="order-sidebar__card">
+            <h4><i class="fas fa-clock"></i> Сроки</h4>
+            <ul>
+              <li>Ответ на заявку — в течение дня</li>
+              <li>Поиск товара — 1–3 дня</li>
+              <li>Доставка — зависит от поставщика</li>
+            </ul>
+          </div>
+
+          <div class="order-sidebar__card">
+            <h4><i class="fab fa-vk"></i> Или напиши нам</h4>
+            <p>Можно написать напрямую в VK — ответим быстро!</p>
+            <a href="https://vk.com/anim_uchi" target="_blank" class="btn btn--outline" style="width:100%;justify-content:center;margin-top:12px;">
+              <i class="fab fa-vk"></i> vk.com/anim_uchi
+            </a>
+          </div>
+
+          <div class="order-sidebar__card order-sidebar__card--popular">
+            <h4>🔥 Часто заказывают</h4>
+            <div class="popular-tags">
+              <span>Атака Титанов</span>
+              <span>Наруто</span>
+              <span>Геншин Импакт</span>
+              <span>Магическая битва</span>
+              <span>One Piece</span>
+              <span>Клинок демонов</span>
+              <span>BTS</span>
+              <span>Stray Kids</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- МОДАЛКА УСПЕХА -->
+  <div class="success-modal" id="successModal">
+    <div class="success-modal__box">
+      <div class="success-modal__icon">🎉</div>
+      <h2>Заявка отправлена!</h2>
+      <p>Спасибо! Мы получили твою заявку и свяжемся с тобой в ближайшее время.</p>
+      <div class="success-modal__num">Номер заявки: <strong id="orderNum"></strong></div>
+      <div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;">
+        <a href="catalog.html" class="btn btn--primary" style="flex:1;justify-content:center;">Смотреть каталог</a>
+        <a href="index.html" class="btn btn--outline" style="flex:1;justify-content:center;">На главную</a>
+      </div>
+    </div>
+  </div>
+  <div class="modal-overlay" id="modalOverlay"></div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/main.js"></script>
+  <script type="module" src="js/order.js"></script>
+</body>
+</html>

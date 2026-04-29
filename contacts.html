@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Контакты — Animuchi</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/catalog.css" />
+  <link rel="stylesheet" href="css/contacts.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">
+        <span class="logo__icon">⛩</span>
+        <span class="logo__text">Animuchi</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html" class="nav__link">Главная</a>
+        <a href="catalog.html" class="nav__link">Каталог</a>
+        <a href="order.html" class="nav__link">Под заказ</a>
+        <a href="contacts.html" class="nav__link active">Контакты</a>
+      </nav>
+      <div class="header__actions">
+        <a href="cart.html" class="cart-btn">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+        <button class="burger" id="burger">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="index.html" class="nav__link">Главная</a>
+      <a href="catalog.html" class="nav__link">Каталог</a>
+      <a href="order.html" class="nav__link">Под заказ</a>
+      <a href="contacts.html" class="nav__link">Контакты</a>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <h1 class="page-hero__title">📍 Контакты</h1>
+      <p class="page-hero__desc">Приходи в магазин или свяжись с нами онлайн</p>
+    </div>
+  </section>
+
+  <section class="contacts-section section">
+    <div class="container">
+
+      <div class="contacts-grid">
+
+        <!-- АДРЕС И РЕЖИМ -->
+        <div class="contact-card contact-card--main">
+          <div class="contact-card__icon"><i class="fas fa-store"></i></div>
+          <h3>Магазин Animuchi</h3>
+          <div class="contact-info">
+            <div class="contact-info__row">
+              <i class="fas fa-map-marker-alt"></i>
+              <div>
+                <strong>Адрес:</strong><br>
+                Свердловская обл., г. Лесной<br>
+                ул. Ленина, 64, 2 этаж
+              </div>
+            </div>
+            <div class="contact-info__row">
+              <i class="fas fa-clock"></i>
+              <div>
+                <strong>Режим работы:</strong><br>
+                Пн–Пт: 10:00 – 19:00<br>
+                Сб–Вс: 11:00 – 18:00
+              </div>
+            </div>
+          </div>
+          <a href="https://yandex.ru/maps/?text=Лесной+Ленина+64" target="_blank" class="btn btn--primary" style="width:100%;justify-content:center;margin-top:16px;">
+            <i class="fas fa-map"></i> Открыть на карте
+          </a>
+        </div>
+
+        <!-- СОЦСЕТИ -->
+        <div class="contact-card">
+          <div class="contact-card__icon"><i class="fab fa-vk"></i></div>
+          <h3>ВКонтакте</h3>
+          <p>Новинки, акции, ответы на вопросы — всё в нашей группе</p>
+          <a href="https://vk.com/anim_uchi" target="_blank" class="btn btn--outline" style="width:100%;justify-content:center;margin-top:12px;">
+            <i class="fab fa-vk"></i> vk.com/anim_uchi
+          </a>
+        </div>
+
+        <!-- AVITO -->
+        <div class="contact-card">
+          <div class="contact-card__icon"><i class="fas fa-shopping-bag"></i></div>
+          <h3>Avito</h3>
+          <p>Часть товаров продаём через Avito с доставкой и рассрочкой</p>
+          <a href="https://www.avito.ru/user/animuchi" target="_blank" class="btn btn--outline" style="width:100%;justify-content:center;margin-top:12px;">
+            <i class="fas fa-external-link-alt"></i> Наш профиль
+          </a>
+        </div>
+
+        <!-- 2ГИС / ЯНДЕКС -->
+        <div class="contact-card">
+          <div class="contact-card__icon"><i class="fas fa-star"></i></div>
+          <h3>Отзывы</h3>
+          <p>Мы на 2ГИС и Яндекс Картах — читай отзывы и оставляй свой!</p>
+          <div style="display:flex;gap:8px;margin-top:12px;">
+            <a href="https://2gis.ru/lesnoy/search/animuchi" target="_blank" class="btn btn--outline" style="flex:1;justify-content:center;font-size:0.85rem;">
+              2ГИС
+            </a>
+            <a href="https://yandex.ru/maps/?text=Animuchi+Лесной" target="_blank" class="btn btn--outline" style="flex:1;justify-content:center;font-size:0.85rem;">
+              Яндекс
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- КАРТА -->
+      <div class="map-section">
+        <h2 class="section__title">Как нас найти</h2>
+        <div class="map-placeholder">
+          <div class="map-placeholder__content">
+            <i class="fas fa-map-marked-alt"></i>
+            <p>Свердловская обл., г. Лесной, ул. Ленина, 64, 2 этаж</p>
+            <a href="https://yandex.ru/maps/?text=Лесной+Ленина+64" target="_blank" class="btn btn--primary">
+              <i class="fas fa-directions"></i> Построить маршрут
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="faq-section">
+        <h2 class="section__title">Частые вопросы</h2>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <div class="faq-item__q">
+              <i class="fas fa-question-circle"></i>
+              <strong>Можно ли примерить/посмотреть товар перед покупкой?</strong>
+            </div>
+            <div class="faq-item__a">
+              Да! Приходи в магазин по адресу ул. Ленина, 64 — покажем всё вживую.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-item__q">
+              <i class="fas fa-question-circle"></i>
+              <strong>Есть ли доставка по России?</strong>
+            </div>
+            <div class="faq-item__a">
+              Да, отправляем Почтой России и СДЭК. Стоимость зависит от региона и веса.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-item__q">
+              <i class="fas fa-question-circle"></i>
+              <strong>Можно ли заказать товар, которого нет в каталоге?</strong>
+            </div>
+            <div class="faq-item__a">
+              Конечно! Заполни форму <a href="order.html">«Под заказ»</a> — найдём и привезём.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-item__q">
+              <i class="fas fa-question-circle"></i>
+              <strong>Как оплатить заказ?</strong>
+            </div>
+            <div class="faq-item__a">
+              Наличными или переводом (СБП) при получении. Онлайн-оплата пока не подключена.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-item__q">
+              <i class="fas fa-question-circle"></i>
+              <strong>Есть ли гарантия на товары?</strong>
+            </div>
+            <div class="faq-item__a">
+              Да, на фигурки и крупные товары — 14 дней. Если брак — заменим или вернём деньги.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-item__q">
+              <i class="fas fa-question-circle"></i>
+              <strong>Как быстро ответите на заявку?</strong>
+            </div>
+            <div class="faq-item__a">
+              Обычно в течение дня. Пишем в VK или звоним — как тебе удобнее.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="logo__icon">⛩</span>
+        <span class="logo__text">Animuchi</span>
+        <p>Аниме‑магазин в Лесном</p>
+      </div>
+      <div class="footer__links">
+        <h4>Навигация</h4>
+        <a href="index.html">Главная</a>
+        <a href="catalog.html">Каталог</a>
+        <a href="order.html">Под заказ</a>
+        <a href="contacts.html">Контакты</a>
+      </div>
+      <div class="footer__contacts">
+        <h4>Контакты</h4>
+        <p><i class="fas fa-map-marker-alt"></i> Лесной, ул. Ленина 64, 2 этаж</p>
+        <p><i class="fab fa-vk"></i> <a href="https://vk.com/anim_uchi" target="_blank">vk.com/anim_uchi</a></p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2025 Animuchi. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
