@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Загрузка товаров — Animuchi</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; background: #fdf6ee; }
+    h2 { color: #c8521a; }
+    button { padding: 14px 28px; background: #c8521a; color: #fff; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; }
+    button:hover { background: #8b3a1a; }
+    #log { margin-top: 20px; padding: 16px; background: #fff; border: 1px solid #e0c9b8; border-radius: 10px; font-size: 0.85rem; line-height: 1.8; max-height: 400px; overflow-y: auto; }
+    .ok { color: #27ae60; }
+    .err { color: #e74c3c; }
+  </style>
+</head>
+<body>
+  <h2>⛩ Загрузка реальных товаров в Firebase</h2>
+  <p>Нажми кнопку — все товары загрузятся в базу данных. Страницу не закрывай пока не появится "Готово!"</p>
+  <button id="seedBtn">🚀 Загрузить все товары</button>
+  <div id="log"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC_MYXFbn20OCluZF4DU8eU6FhTSdRxAjA",
+      authDomain: "animuchi-ad047.firebaseapp.com",
+      projectId: "animuchi-ad047",
+      storageBucket: "animuchi-ad047.firebasestorage.app",
+      messagingSenderId: "662811286779",
+      appId: "1:662811286779:web:5475d0bdd1d2ace4caa45e",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    const BASE = '../img/products/';
+
+    const PRODUCTS = [
+      // ===== КРУЖКИ =====
+      {
+        name: 'Кружка «Made in Abyss» — Рико и Рег',
+        title: 'Made in Abyss',
+        category: 'accessories',
+        price: 590,
+        emoji: '☕',
+        photoUrl: BASE + '36FzyJiGxK6Fg0fJtx90SB4BaNCX9jLAKFa4Dmja9dPSESaKKP6TclTGRLggxUG5bjsoQI8JZfU8aSQZsjAVHn2E.jpg',
+        description: 'Керамическая кружка с ярким принтом Рико и Рег на фоне Бездны. Объём ~330 мл. Отличный подарок фанату аниме.',
+        badge: 'new', inStock: true,
+      },
+      {
+        name: 'Кружка «Re:Zero» — Рем',
+        title: 'Re:Zero',
+        category: 'accessories',
+        price: 590,
+        emoji: '☕',
+        photoUrl: BASE + '7V0lBkRxO9SVvcF-cVo0sAgxhETsnaLNkfPnAsZ5SVNv9DV2dlksdKZOqvfEr3VRNvwcSSI9pJeaRpluI8pt0rSV.jpg',
+        description: 'Кружка с крупным портретом Рем — синеволосой горничной из Re:Zero. Яркий принт, объём ~330 мл.',
+        badge: null, inStock: true,
+      },
+      {
+        name: 'Кружка «Honkai Star Rail» — Кафка',
+        title: 'Honkai: Star Rail',
+        category: 'accessories',
+        price: 590,
+        emoji: '☕',
+        photoUrl: BASE + 'CwBMDspCJ4cNFBuJ8smrgkuQc8nEo2AAyl9Tlhsfzsvz2QWRb4lKiFl35SRyv-oLskd9ypa9ejW1NE7Sjc_nswUK.jpg',
+        description: 'Кружка с Кафкой — таинственным персонажем Honkai: Star Rail. Тёмно-синий фон, стильный принт. Объём ~330 мл.',
+        badge: 'new', inStock: true,
+      },
+      {
+        name: 'Кружка «Genshin Impact» — Горо',
+        title: 'Genshin Impact',
+        category: 'accessories',
+        price: 590,
+        emoji: '☕',
+        photoUrl: BASE + 'gsXjDAJWpVWiy_bzHZqcWeCd5NGmG6Ss9Z9mvAzZLR4-GZxksRr5IppRkoEg2_KkGk1QdWvYbsh4hYU59fpw3oNh.jpg',
+        description: 'Кружка с Горо — лисоухим генералом из Genshin Impact. Зелёный фон, детальный принт. Объём ~330 мл.',
+        badge: null, inStock: true,
+      },
+      {
+        name: 'Кружка «Панда» kawaii',
+        title: 'Kawaii',
+        category: 'accessories',
+        price: 490,
+        emoji: '🐼',
+        photoUrl: BASE + 'iELUmYgScs7tlQn2SqCzWudmI-buOetrAbw6MiIAETjKIrBlMVlKBrGhdOwyqTuYJIG8OqXhfBUWLT8KN5dsGNim.jpg',
+        description: 'Яркая зелёная кружка с милой пандой в стиле kawaii. Отличный подарок для любителей cute-эстетики.',
+        badge: null, inStock: true,
+      },
+      {
+        name: 'Кружка «One Punch Man» — Тацумаки',
+        title: 'One Punch Man',
+        category: 'accessories',
+        price: 590,
+        emoji: '☕',
+        photoUrl: BASE + 'Il24Lc6GS2IBB6bi4xUno10qkHuGap4vgF-Pmz3zZOr91fBLm6p1wnjBeDXb6i6TEfWIYKza8gD2cyZzUYVqLOw9.jpg',
+        description: 'Кружка с Тацумаки (Торнадо) — мощнейшим телекинетиком из One Punch Man. Динамичный синий принт.',
+        badge: null, inStock: true,
+      },
+      {
+        name: 'Кружка «Oshi no Ko» — персонажи',
+        title: 'Oshi no Ko',
+        category: 'accessories',
+        price: 590,
+        emoji: '☕',
+        photoUrl: BASE + 'JueKeCGDd7-g5poeZsa2hH07vl9cBqrt4zg3rtrqEIq1jP4bS5y5Or9TtSLNypmTZeQMWe25GqmgJAhxkJ2ED6zh.jpg',
+        description: 'Кружка с персонажами аниме Oshi no Ko. Яркий цветной принт с несколькими героями.',
+        badge: 'new', inStock: true,
+      },
+      {
+        name: 'Кружка «Pusheen» — паттерн',
+        title: 'Pusheen',
+        category: 'accessories',
+        price: 490,
+        emoji: '🐱',
+        photoUrl: BASE + 'oqaJN7cLuBceSi1O4pP1wRPQcS6dv0XVKtx9H_yqj_sOXCPP9Ab4vz728X3WL-OZ4I9_KZf0vW8KEgWswCem9vPA.jpg',
+        description: 'Белая кружка с паттерном из котика Pusheen — сердечки, звёзды, планеты. Милый подарок.',
+        badge: null, inStock: true,
+      },
+      {
+        name: 'Кружка «Danganronpa» — тёмная',
+        title: 'Danganronpa',
+        category: 'accessories',
+        price: 590,
+        emoji: '☕',
+        photoUrl: BASE + 'RbS8YXuOs3A6fzjSu3olcmbSKnz10y3GQy1jEcRg2D1ryMFaXYIBcKii2CRbZpy6Fwl0cIOn_PyOuhQzUQCGfJBr.jpg',
+        description: 'Тёмная кружка с персонажем Danganronpa. Стильный мрачный дизайн для фанатов серии.',
+        badge: null, inStock: true,
+      },
+      {
+        name: 'Кружка «Романтическое аниме»',
+        title: 'Аниме',
+        category: 'accessories',
+        price: 490,
+        emoji: '☕',
+        photoUrl: BASE + 'SyKfxptfpXYRVs57h_ygr6E4MZYzmU1W8piOE0a6ZuPxPfcomTknxy7SpZ-91lUO2Pzx6NmO7tTnEfGs0ekvnBJd.jpg',
+        description: 'Кружка с романтичным принтом — пара у воды. Тёплые тона, атмосферный рисунок.',
+        badge: null, inStock: true,
+      },
+      // ===== ШОПЕРЫ =====
+      {
+        name: 'Шопер «Honkai Star Rail» — Тинъюнь',
+        title: 'Honkai: Star Rail',
+        category: 'accessories',
+        price: 890,
+        emoji: '🛍️',
+        photoUrl: BASE + 'шопер-1.jpg',
+        description: 'Вместительный шопер с Тинъюнь из Honkai: Star Rail. Плотная ткань, яркий принт, удобные ручки.',
+        badge: 'new', inStock: true,
+      },
+      {
+        name: 'Шопер «Chainsaw Man» — Дэндзи',
+        title: 'Chainsaw Man',
+        category: 'accessories',
+        price: 890,
+        emoji: '🛍️',
+        photoUrl: BASE + 'шопер-2.jpg',
+        description: 'Шопер с Дэндзи из Chainsaw Man. Чёрный фон, динамичный принт. Для фанатов культового аниме.',
+        badge: null, inStock: true,
+      },
+      {
+        name: 'Шопер «Chainsaw Man» — Пауэр',
+        title: 'Chainsaw Man',
+        category: 'accessories',
+        price: 890,
+        emoji: '🛍️',
+        photoUrl: BASE + 'шопер-3.jpg',
+        description: 'Шопер с Пауэр — дерзким демоном крови из Chainsaw Man. Яркий принт на тёмном фоне.',
+        badge: null, inStock: true,
+      },
+      {
+        name: 'Шопер «Honkai Star Rail» — Март 7-е',
+        title: 'Honkai: Star Rail',
+        category: 'accessories',
+        price: 890,
+        emoji: '🛍️',
+        photoUrl: BASE + 'шопер-4.jpg',
+        description: 'Шопер с Март 7-е — весёлым фотографом из Honkai: Star Rail. Голубые тона, цветочный принт.',
+        badge: 'new', inStock: true,
+      },
+      {
+        name: 'Шопер «Honkai Star Rail» — Цзин Юань',
+        title: 'Honkai: Star Rail',
+        category: 'accessories',
+        price: 890,
+        emoji: '🛍️',
+        photoUrl: BASE + 'шопер-5.jpg',
+        description: 'Шопер с Цзин Юань и белым львом из Honkai: Star Rail. Осенние листья, эпичный принт.',
+        badge: null, inStock: true,
+      },
+      {
+        name: 'Шопер «Honkai Impact 3» — Яэ Сакура',
+        title: 'Honkai Impact 3rd',
+        category: 'accessories',
+        price: 890,
+        emoji: '🛍️',
+        photoUrl: BASE + 'шопер-6.jpg',
+        description: 'Шопер с Яэ Сакурой из Honkai Impact 3rd. Розовые тона, детальный принт персонажа.',
+        badge: null, inStock: true,
+      },
+      {
+        name: 'Шопер «Honkai Impact 3» — Синяя',
+        title: 'Honkai Impact 3rd',
+        category: 'accessories',
+        price: 890,
+        emoji: '🛍️',
+        photoUrl: BASE + 'шопер-7.jpg',
+        description: 'Шопер с персонажем Honkai Impact 3rd. Синий фон, цепи, стильный дизайн.',
+        badge: null, inStock: true,
+      },
+      {
+        name: 'Шопер «Chainsaw Man» — Почита',
+        title: 'Chainsaw Man',
+        category: 'accessories',
+        price: 890,
+        emoji: '🛍️',
+        photoUrl: BASE + 'шопер-8.jpg',
+        description: 'Шопер с Почитой — милым дьяволом-бензопилой из Chainsaw Man. Оранжевый принт на тёмном фоне.',
+        badge: null, inStock: true,
+      },
+      // ===== ПЕНАЛЫ =====
+      {
+        name: 'Пенал «Аниме-девушка» зелёные волосы',
+        title: 'Аниме',
+        category: 'accessories',
+        price: 490,
+        emoji: '✏️',
+        photoUrl: BASE + 'шопер-9.jpg',
+        description: 'Пенал с аниме-девушкой с зелёными волосами. Плотная ткань, молния, удобный размер.',
+        badge: 'new', inStock: true,
+      },
+      {
+        name: 'Пенал «Haikyuu!!» — 4 персонажа',
+        title: 'Haikyuu!!',
+        category: 'accessories',
+        price: 490,
+        emoji: '✏️',
+        photoUrl: BASE + 'cTs9SN-cZGsHb9cdJdCVbGTwI_UJRqr9aQ3y88zXpZtGV6CGTY0UBER5vqIRKIvj0VPIDtSfguuais9vB-taqpfQ.jpg',
+        description: 'Пенал с четырьмя персонажами Haikyuu!! — Кагэяма, Курoo, Цукишима и другие. Тёмный фон.',
+        badge: null, inStock: true,
+      },
+      // ===== СЕРЬГИ =====
+      {
+        name: 'Серьги акриловые «Genshin» — Вэнти',
+        title: 'Genshin Impact',
+        category: 'pendants',
+        price: 350,
+        emoji: '📿',
+        photoUrl: BASE + 'акриловые-серьги-1.jpg',
+        description: 'Акриловые серьги с Вэнти из Genshin Impact. Серебряная фурнитура, лёгкие и яркие.',
+        badge: 'new', inStock: true,
+      },
+      {
+        name: 'Серьги акриловые «Brawl Stars»',
+        title: 'Brawl Stars',
+        category: 'pendants',
+        price: 350,
+        emoji: '📿',
+        photoUrl: BASE + 'акриловые-серьги-2.jpg',
+        description: 'Акриловые серьги в виде звезды Brawl Stars. Яркие жёлто-оранжевые, серебряная фурнитура.',
+        badge: null, inStock: true,
+      },
+      {
+        name: 'Серьги акриловые «Аниме» — персонаж',
+        title: 'Аниме',
+        category: 'pendants',
+        price: 350,
+        emoji: '📿',
+        photoUrl: BASE + 'акриловые-серьги-3.jpg',
+        description: 'Акриловые серьги с аниме-персонажем. Серебряная фурнитура, лёгкие.',
+        badge: null, inStock: true,
+      },
+      {
+        name: 'Серьги акриловые «Evangelion» — Аска',
+        title: 'Neon Genesis Evangelion',
+        category: 'pendants',
+        price: 350,
+        emoji: '📿',
+        photoUrl: BASE + 'акриловые-серьги-4.jpg',
+        description: 'Акриловые серьги с Аской Лэнгли из Evangelion. Рыжеволосая пилот Евы, серебряная фурнитура.',
+        badge: 'new', inStock: true,
+      },
+      {
+        name: 'Серьги акриловые «BTS» — участники',
+        title: 'BTS',
+        category: 'kpop',
+        price: 350,
+        emoji: '📿',
+        photoUrl: BASE + 'акриловые-серьги-5.jpg',
+        description: 'Акриловые серьги с участниками BTS. Серебряная фурнитура, отличный подарок для ARMY.',
+        badge: null, inStock: true,
+      },
+      {
+        name: 'Серьги акриловые «K-Pop» — парные',
+        title: 'K-Pop',
+        category: 'kpop',
+        price: 350,
+        emoji: '📿',
+        photoUrl: BASE + 'акриловые-серьги-6.jpg',
+        description: 'Акриловые серьги с K-Pop исполнителями. Серебряная фурнитура.',
+        badge: null, inStock: true,
+      },
+      {
+        name: 'Серьги акриловые «MHA» — Мидория',
+        title: 'My Hero Academia',
+        category: 'pendants',
+        price: 350,
+        emoji: '📿',
+        photoUrl: BASE + 'акриловые-серьги-7.jpg',
+        description: 'Акриловые серьги с Мидорией Изуку из My Hero Academia. Зелёный герой, серебряная фурнитура.',
+        badge: null, inStock: true,
+      },
+      {
+        name: 'Серьги акриловые «K-Pop» — солист',
+        title: 'K-Pop',
+        category: 'kpop',
+        price: 350,
+        emoji: '📿',
+        photoUrl: BASE + 'акриловые-серьги-8.jpg',
+        description: 'Акриловые серьги с K-Pop исполнителем. Серебряная фурнитура, стильный дизайн.',
+        badge: null, inStock: true,
+      },
+      {
+        name: 'Серьги акриловые «Кролик» kawaii',
+        title: 'Kawaii',
+        category: 'pendants',
+        price: 350,
+        emoji: '📿',
+        photoUrl: BASE + 'акриловые-серьги-9.jpg',
+        description: 'Акриловые серьги с милым кроликом в индейском головном уборе. Яркие, серебряная фурнитура.',
+        badge: null, inStock: true,
+      },
+      {
+        name: 'Серьги акриловые «Клинок» — Иноске',
+        title: 'Клинок рассекающий демонов',
+        category: 'pendants',
+        price: 350,
+        emoji: '📿',
+        photoUrl: BASE + 'акриловые-серьги-10.jpg',
+        description: 'Акриловые серьги с Иноске из Клинка рассекающего демонов. Серебряная фурнитура.',
+        badge: null, inStock: true,
+      },
+      // ===== ПОДУШКИ =====
+      {
+        name: 'Подушка «Genshin Impact» — Ганью',
+        title: 'Genshin Impact',
+        category: 'accessories',
+        price: 790,
+        emoji: '🛏️',
+        photoUrl: BASE + 'подушка-1.jpg',
+        description: 'Мягкая подушка с Ганью из Genshin Impact. Голубые волосы, нежный принт. Размер ~40×40 см.',
+        badge: 'new', inStock: true,
+      },
+      {
+        name: 'Подушка «Genshin Impact» — Клили',
+        title: 'Genshin Impact',
+        category: 'accessories',
+        price: 790,
+        emoji: '🛏️',
+        photoUrl: BASE + 'подушка-2.jpg',
+        description: 'Мягкая подушка с Клили из Genshin Impact. Красная шапочка, милый чиби-принт. Размер ~40×40 см.',
+        badge: null, inStock: true,
+      },
+    ];
+
+    const logEl = document.getElementById('log');
+    function log(msg, cls = '') {
+      logEl.innerHTML += `<div class="${cls}">${msg}</div>`;
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    document.getElementById('seedBtn').addEventListener('click', async () => {
+      const email = prompt('Введи email от админки:');
+      const pass = prompt('Введи пароль:');
+      if (!email || !pass) return;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, pass);
+        log('✅ Авторизация успешна', 'ok');
+      } catch (e) {
+        log('❌ Ошибка авторизации: ' + e.message, 'err');
+        return;
+      }
+
+      log(`Начинаю загрузку ${PRODUCTS.length} товаров...`);
+
+      let ok = 0, fail = 0;
+      for (const p of PRODUCTS) {
+        try {
+          await addDoc(collection(db, 'products'), {
+            ...p,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          });
+          log(`✅ ${p.name}`, 'ok');
+          ok++;
+        } catch (e) {
+          log(`❌ ${p.name}: ${e.message}`, 'err');
+          fail++;
+        }
+      }
+
+      log(`<br><strong>Готово! Загружено: ${ok}, ошибок: ${fail}</strong>`, ok > 0 ? 'ok' : 'err');
+    });
+  </script>
+</body>
+</html>
