@@ -276,7 +276,7 @@ async function loadOrders() {
         list.innerHTML = '<div class="loading">Нет заказов с таким статусом</div>';
         return;
       }
-      const deliveryMap = { pickup: 'Самовывоз', post: 'Почта России', cdek: 'СДЭК' };
+      const deliveryMap = { pickup: 'Самовывоз', city: 'По Лесному', post: 'Почта России', cdek: 'СДЭК' };
       const paymentMap = { cash: 'Наличные', transfer: 'СБП' };
       const statusMap = {
         new:       { label: 'Новый',    cls: 'status-new' },

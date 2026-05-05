@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Recurse)",
+      "Bash(Select-Object FullName)",
+      "PowerShell(head *)",
+      "Bash(Get-ChildItem \"C:\\\\Users\\\\Home\\\\Desktop\\\\animuchi\\\\animuchi\" -File)",
+      "Bash(Select-Object Name, Length, LastWriteTime)",
+      "Bash(Format-Table)",
+      "PowerShell(ls -File \"C:\\\\Users\\\\Home\\\\Desktop\\\\animuchi\\\\animuchi\" | Select-Object Name, @{Name=\"Size\";Expression={$_.Length}}, LastWriteTime | Format-Table)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(gh api *)",
+      "Bash(powershell -Command ' *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
+    ]
+  }
+}

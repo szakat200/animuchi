@@ -311,3 +311,25 @@
 @media (max-width: 640px) {
   .wishlist-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
 }
+
+/* ===== DELIVERY BANNER ===== */
+.delivery-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, rgba(200,82,26,0.08), rgba(212,118,59,0.08));
+  border: 1px solid rgba(200,82,26,0.2);
+  border-radius: var(--radius);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+.delivery-banner i { color: var(--accent); margin-right: 4px; }
+.delivery-banner__sep { color: var(--border); }
+@media (max-width: 640px) {
+  .delivery-banner__sep { display: none; }
+  .delivery-banner { flex-direction: column; align-items: flex-start; gap: 8px; }
+}

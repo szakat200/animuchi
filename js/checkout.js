@@ -103,7 +103,7 @@ const addressBlock = document.getElementById('addressBlock');
 
 function toggleAddressBlock() {
   const val = document.querySelector('input[name="delivery"]:checked').value;
-  addressBlock.style.display = val === 'pickup' ? 'none' : 'flex';
+  addressBlock.style.display = (val === 'pickup') ? 'none' : 'flex';
 }
 deliveryRadios.forEach(r => r.addEventListener('change', toggleAddressBlock));
 toggleAddressBlock();
