@@ -1,19 +1,5 @@
 // ===== CHECKOUT =====
-
-// Вспомогательные функции (дублируем из main.js для работы как модуль)
-function getCart() {
-  return JSON.parse(localStorage.getItem('animuchi_cart') || '[]');
-}
-function saveCart(cart) {
-  localStorage.setItem('animuchi_cart', JSON.stringify(cart));
-}
-function updateCartCount() {
-  const cart = getCart();
-  const total = cart.reduce((sum, item) => sum + item.qty, 0);
-  document.querySelectorAll('#cartCount').forEach(el => {
-    el.textContent = total;
-  });
-}
+import { getCart, saveCart, updateCartCount } from './cart-utils.js';
 
 let currentStep = 1;
 
@@ -142,7 +128,7 @@ function renderOrderSummary() {
     div.innerHTML = `
       <div class="order-summary__item-emoji">
         ${item.photoUrl
-          ? `<img src="${item.photoUrl}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`
+          ? `<img src="${item.photoUrl}" alt="${item.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`
           : (item.emoji || '📦')}
       </div>
       <div class="order-summary__item-info">
@@ -200,10 +186,8 @@ document.getElementById('submitOrderBtn').addEventListener('click', async () => 
   saveCart([]);
   updateCartCount();
 
-  // Показываем модалку успеха
-  document.getElementById('orderNum').textContent = orderData.id;
-  document.getElementById('successModal').classList.add('show');
-  document.getElementById('modalOverlay').classList.add('show');
+  // Переходим на страницу спасибо
+  window.location.href = `thanks.html?order=${encodeURIComponent(orderData.id)}&name=${encodeURIComponent(orderData.firstName)}`;
 });
 
 // ===== ИНИЦИАЛИЗАЦИЯ =====

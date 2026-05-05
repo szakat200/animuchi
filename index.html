@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
@@ -24,7 +24,17 @@
         <a href="order.html" class="nav__link">Под заказ</a>
         <a href="contacts.html" class="nav__link">Контакты</a>
       </nav>
+      <form class="header-search-form" id="headerSearchForm">
+        <i class="fas fa-search search-form-icon"></i>
+        <input type="text" id="headerSearchInput" placeholder="Найти товар..." autocomplete="off" />
+        <button type="button" class="header-search__close" id="headerSearchClose" aria-label="Закрыть">
+          <i class="fas fa-times"></i>
+        </button>
+      </form>
       <div class="header__actions">
+        <button class="search-toggle" id="searchToggle" aria-label="Поиск">
+          <i class="fas fa-search"></i>
+        </button>
         <a href="cart.html" class="cart-btn">
           <i class="fas fa-shopping-cart"></i>
           <span class="cart-count" id="cartCount">0</span>
@@ -36,6 +46,10 @@
     </div>
     <!-- Mobile nav -->
     <div class="mobile-nav" id="mobileNav">
+      <form class="mobile-search" id="mobileSearchForm">
+        <i class="fas fa-search"></i>
+        <input type="text" id="mobileSearchInput" placeholder="Найти товар..." autocomplete="off" />
+      </form>
       <a href="index.html" class="nav__link">Главная</a>
       <a href="catalog.html" class="nav__link">Каталог</a>
       <a href="order.html" class="nav__link">Под заказ</a>
@@ -47,12 +61,36 @@
   <section class="hero">
     <div class="hero__bg"></div>
     <div class="container hero__content">
-      <div class="hero__badge">🎌 Аниме · Косплей · Мерч</div>
-      <h1 class="hero__title">Твой аниме‑магазин<br><span>в Лесном</span></h1>
-      <p class="hero__desc">Фигурки, постеры, кулоны, аксессуары и редкий мерч под заказ. Доставка по всей России.</p>
-      <div class="hero__btns">
-        <a href="catalog.html" class="btn btn--primary">Смотреть каталог</a>
-        <a href="order.html" class="btn btn--outline">Заказать редкий товар</a>
+      <div class="hero__text">
+        <div class="hero__badge">🎌 Аниме · Косплей · Мерч</div>
+        <h1 class="hero__title">Твой аниме‑магазин<br><span>в Лесном</span></h1>
+        <p class="hero__desc">Фигурки, постеры, кулоны, аксессуары и редкий мерч под заказ. Доставка по всей России.</p>
+        <div class="hero__btns">
+          <a href="catalog.html" class="btn btn--primary">Смотреть каталог</a>
+          <a href="order.html" class="btn btn--outline">Заказать редкий товар</a>
+        </div>
+      </div>
+      <div class="hero__visual" aria-hidden="true">
+        <svg class="hero__torii" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- kasagi: top arch beam -->
+          <path d="M10,92 Q150,48 290,92" stroke="currentColor" stroke-width="20" stroke-linecap="round"/>
+          <!-- kasagi tip upturns -->
+          <line x1="10" y1="92" x2="10" y2="76" stroke="currentColor" stroke-width="20" stroke-linecap="round"/>
+          <line x1="290" y1="92" x2="290" y2="76" stroke="currentColor" stroke-width="20" stroke-linecap="round"/>
+          <!-- nuki: second horizontal beam -->
+          <line x1="65" y1="138" x2="235" y2="138" stroke="currentColor" stroke-width="13" stroke-linecap="round"/>
+          <!-- pillars -->
+          <line x1="82" y1="62" x2="82" y2="400" stroke="currentColor" stroke-width="20" stroke-linecap="round"/>
+          <line x1="218" y1="62" x2="218" y2="400" stroke="currentColor" stroke-width="20" stroke-linecap="round"/>
+        </svg>
+        <div class="sakura-petal sp1"></div>
+        <div class="sakura-petal sp2"></div>
+        <div class="sakura-petal sp3"></div>
+        <div class="sakura-petal sp4"></div>
+        <div class="sakura-petal sp5"></div>
+        <div class="sakura-petal sp6"></div>
+        <div class="sakura-petal sp7"></div>
+        <div class="sakura-petal sp8"></div>
       </div>
     </div>
     <div class="hero__shapes">
@@ -183,5 +221,8 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
 </body>
 </html>
+
+

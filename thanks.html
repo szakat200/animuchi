@@ -1,0 +1,304 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Заказ оформлен — Animuchi</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .thanks-section {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+    }
+
+    .thanks-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      max-width: 560px;
+      width: 100%;
+      padding: 56px 48px;
+      text-align: center;
+    }
+
+    .thanks-card__icon {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(200,82,26,0.12), rgba(212,118,59,0.12));
+      border: 2px solid rgba(200,82,26,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      font-size: 2.4rem;
+    }
+
+    .thanks-card__check {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      font-size: 2.2rem;
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(34,197,94,0.35);
+      animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+    .thanks-card__title {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .thanks-card__subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .thanks-card__order {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 24px;
+      margin-bottom: 36px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .thanks-card__order strong {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+    }
+
+    .thanks-card__steps {
+      background: var(--bg2);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      text-align: left;
+    }
+
+    .thanks-card__steps h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .thanks-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 8px 0;
+    }
+
+    .thanks-step + .thanks-step {
+      border-top: 1px solid var(--border);
+    }
+
+    .thanks-step__num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .thanks-step__text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .thanks-card__btns {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .thanks-card { padding: 40px 24px; }
+      .thanks-card__title { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">
+        <span class="logo__icon">⛩</span>
+        <span class="logo__text">Animuchi</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html" class="nav__link">Главная</a>
+        <a href="catalog.html" class="nav__link">Каталог</a>
+        <a href="order.html" class="nav__link">Под заказ</a>
+        <a href="contacts.html" class="nav__link">Контакты</a>
+      </nav>
+      <form class="header-search-form" id="headerSearchForm">
+        <i class="fas fa-search search-form-icon"></i>
+        <input type="text" id="headerSearchInput" placeholder="Найти товар..." autocomplete="off" />
+        <button type="button" class="header-search__close" id="headerSearchClose" aria-label="Закрыть">
+          <i class="fas fa-times"></i>
+        </button>
+      </form>
+      <div class="header__actions">
+        <button class="search-toggle" id="searchToggle" aria-label="Поиск">
+          <i class="fas fa-search"></i>
+        </button>
+        <a href="wishlist.html" class="wishlist-btn-header" id="wishlistBtnHeader" aria-label="Избранное">
+          <i class="fas fa-heart"></i>
+          <span class="wishlist-count" id="wishlistCount">0</span>
+        </a>
+        <a href="cart.html" class="cart-btn">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+        <button class="burger" id="burger">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+      <form class="mobile-search" id="mobileSearchForm">
+        <i class="fas fa-search"></i>
+        <input type="text" id="mobileSearchInput" placeholder="Найти товар..." autocomplete="off" />
+      </form>
+      <a href="index.html" class="nav__link">Главная</a>
+      <a href="catalog.html" class="nav__link">Каталог</a>
+      <a href="order.html" class="nav__link">Под заказ</a>
+      <a href="contacts.html" class="nav__link">Контакты</a>
+    </div>
+  </header>
+
+  <section class="thanks-section">
+    <div class="thanks-card">
+
+      <div class="thanks-card__check">
+        <i class="fas fa-check"></i>
+      </div>
+
+      <h1 class="thanks-card__title" id="thanksTitle">Заказ оформлен!</h1>
+      <p class="thanks-card__subtitle" id="thanksSubtitle">
+        Спасибо за покупку в <strong>Animuchi</strong>!<br>
+        Мы свяжемся с тобой по телефону для подтверждения.
+      </p>
+
+      <div class="thanks-card__order">
+        <i class="fas fa-receipt"></i>
+        Номер заказа: <strong id="orderNum">—</strong>
+      </div>
+
+      <div class="thanks-card__steps">
+        <h4>Что дальше?</h4>
+        <div class="thanks-step">
+          <div class="thanks-step__num">1</div>
+          <div class="thanks-step__text">Мы позвоним тебе в течение рабочего дня для подтверждения заказа</div>
+        </div>
+        <div class="thanks-step">
+          <div class="thanks-step__num">2</div>
+          <div class="thanks-step__text">Уточним детали доставки и удобное время получения</div>
+        </div>
+        <div class="thanks-step">
+          <div class="thanks-step__num">3</div>
+          <div class="thanks-step__text">Отправим заказ или подготовим к самовывозу</div>
+        </div>
+      </div>
+
+      <div class="thanks-card__btns">
+        <a href="catalog.html" class="btn btn--primary btn--full">
+          <i class="fas fa-store"></i> Продолжить покупки
+        </a>
+        <a href="contacts.html" class="btn btn--outline btn--full">
+          <i class="fas fa-phone"></i> Связаться с нами
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="logo__icon">⛩</span>
+        <span class="logo__text">Animuchi</span>
+        <p>Аниме‑магазин в Лесном</p>
+      </div>
+      <div class="footer__links">
+        <h4>Навигация</h4>
+        <a href="index.html">Главная</a>
+        <a href="catalog.html">Каталог</a>
+        <a href="order.html">Под заказ</a>
+        <a href="contacts.html">Контакты</a>
+      </div>
+      <div class="footer__contacts">
+        <h4>Контакты</h4>
+        <p><i class="fas fa-map-marker-alt"></i> Лесной, ул. Ленина 64, 2 этаж</p>
+        <p><i class="fab fa-vk"></i> <a href="https://vk.com/anim_uchi" target="_blank">vk.com/anim_uchi</a></p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2025 Animuchi. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const orderId = params.get('order');
+      const name = params.get('name');
+
+      if (orderId) {
+        document.getElementById('orderNum').textContent = orderId;
+      }
+      if (name) {
+        document.getElementById('thanksTitle').textContent = name + ', заказ оформлен!';
+      }
+
+      // Если зашли без параметров — редирект на главную
+      if (!orderId) {
+        window.location.href = 'index.html';
+      }
+    });
+  </script>
+  <script src="js/animations.js"></script>
+</body>
+</html>
+
+

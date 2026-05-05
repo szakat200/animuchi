@@ -1,16 +1,5 @@
 // ===== CART PAGE =====
 
-// Защита: если main.js не загрузился раньше
-if (typeof getCart === 'undefined') {
-  window.getCart = () => JSON.parse(localStorage.getItem('animuchi_cart') || '[]');
-  window.saveCart = (cart) => localStorage.setItem('animuchi_cart', JSON.stringify(cart));
-  window.updateCartCount = () => {
-    const cart = getCart();
-    const total = cart.reduce((s, i) => s + i.qty, 0);
-    document.querySelectorAll('#cartCount').forEach(el => { el.textContent = total; });
-  };
-}
-
 function renderCart() {
   const cart = getCart();
   const cartEmpty = document.getElementById('cartEmpty');
@@ -40,7 +29,7 @@ function renderCart() {
     row.innerHTML = `
       <div class="cart-item__img">
         ${item.photoUrl
-          ? `<img src="${item.photoUrl}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius);">`
+          ? `<img src="${item.photoUrl}" alt="${item.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius);">`
           : (item.emoji || '📦')}
       </div>
       <div class="cart-item__body">
@@ -85,13 +74,13 @@ function renderCart() {
 
   // Обработчики кнопок
   cartItemsEl.querySelectorAll('.qty-minus').forEach(btn => {
-    btn.addEventListener('click', () => changeQty(parseInt(btn.dataset.id), -1));
+    btn.addEventListener('click', () => changeQty(btn.dataset.id, -1));
   });
   cartItemsEl.querySelectorAll('.qty-plus').forEach(btn => {
-    btn.addEventListener('click', () => changeQty(parseInt(btn.dataset.id), 1));
+    btn.addEventListener('click', () => changeQty(btn.dataset.id, 1));
   });
   cartItemsEl.querySelectorAll('.cart-item__remove').forEach(btn => {
-    btn.addEventListener('click', () => removeFromCart(parseInt(btn.dataset.id)));
+    btn.addEventListener('click', () => removeFromCart(btn.dataset.id));
   });
 }
 

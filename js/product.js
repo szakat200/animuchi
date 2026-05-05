@@ -1,14 +1,6 @@
 // ===== СТРАНИЦА ТОВАРА =====
 import { loadProductsFromFirebase } from './firebase.js';
-
-// Локальные копии функций корзины (модуль не видит main.js)
-function getCart() { return JSON.parse(localStorage.getItem('animuchi_cart') || '[]'); }
-function saveCart(cart) { localStorage.setItem('animuchi_cart', JSON.stringify(cart)); }
-function updateCartCount() {
-  const cart = getCart();
-  const total = cart.reduce((s, i) => s + i.qty, 0);
-  document.querySelectorAll('#cartCount').forEach(el => { el.textContent = total; });
-}
+import { getCart, saveCart, updateCartCount } from './cart-utils.js';
 
 const CAT_LABELS = {
   figures: 'Фигурки', posters: 'Постеры', pendants: 'Кулоны',
@@ -71,7 +63,7 @@ async function loadProduct() {
     <div class="product-gallery">
       <div class="product-gallery__main">
         ${product.photoUrl
-          ? `<img src="${product.photoUrl}" alt="${product.name}" />`
+          ? `<img src="${product.photoUrl}" alt="${product.name}" loading="lazy" />`
           : `<span class="product-emoji-big">${product.emoji || '📦'}</span>`}
       </div>
     </div>
@@ -79,6 +71,7 @@ async function loadProduct() {
     <div class="product-info">
       <div class="product-info__cat">${CAT_LABELS[product.category] || product.category}</div>
       <h1 class="product-info__name">${product.name}</h1>
+      <div class="product-info__rating" id="productRating"></div>
       <div class="product-info__title">${product.title || ''}</div>
 
       ${product.badge ? `
@@ -114,8 +107,11 @@ async function loadProduct() {
           <a href="order.html" class="btn btn--primary">
             <i class="fas fa-search"></i> Заказать под заказ
           </a>`}
+        <button class="btn btn--outline" id="wishlistProductBtn">
+          <i class="fas fa-heart"></i> В избранное
+        </button>
         <a href="catalog.html" class="btn btn--outline">
-          <i class="fas fa-arrow-left"></i> Назад в каталог
+          <i class="fas fa-arrow-left"></i> Назад
         </a>
       </div>
 
@@ -141,6 +137,48 @@ async function loadProduct() {
       </div>
     </div>
   `;
+
+  const pid = String(product.firebaseId || product.id);
+
+  // Рейтинг под заголовком
+  const ratingEl = document.getElementById('productRating');
+  if (ratingEl && typeof getAverageRating === 'function') {
+    const avg = getAverageRating(pid);
+    const reviews = getProductReviews(pid);
+    if (avg > 0) {
+      ratingEl.innerHTML = `${starsHtml(avg)} <span class="rating-count">${reviews.length} ${pluralRu(reviews.length, 'отзыв', 'отзыва', 'отзывов')}</span>`;
+    }
+  }
+
+  // Избранное
+  const wishlistProductBtn = document.getElementById('wishlistProductBtn');
+  if (wishlistProductBtn && typeof isInWishlist === 'function') {
+    const updateWishlistBtn = () => {
+      const active = isInWishlist(pid);
+      wishlistProductBtn.innerHTML = active
+        ? '<i class="fas fa-heart" style="color:#e74c3c"></i> В избранном'
+        : '<i class="fas fa-heart"></i> В избранное';
+    };
+    updateWishlistBtn();
+    wishlistProductBtn.addEventListener('click', () => {
+      toggleWishlist({
+        id: pid,
+        name: product.name,
+        price: product.price,
+        emoji: product.emoji || '📦',
+        photoUrl: product.photoUrl || null,
+        category: product.category,
+      });
+      updateWishlistBtn();
+      updateWishlistCount();
+    });
+  }
+
+  // Отзывы
+  if (typeof renderProductReviews === 'function') {
+    renderProductReviews(pid);
+    initReviewForm(pid);
+  }
 
   // Количество
   const qtyMinus = document.getElementById('qtyMinus');
@@ -201,6 +239,81 @@ async function loadProduct() {
       }
     });
   }
+}
+
+function renderProductReviews(productId) {
+  const reviews = getProductReviews(productId);
+  const list = document.getElementById('reviewsList');
+  if (!list) return;
+
+  if (reviews.length === 0) {
+    list.innerHTML = '<p class="no-reviews">Пока нет отзывов. Будь первым!</p>';
+    return;
+  }
+
+  list.innerHTML = `<div class="reviews-list">${reviews.map(r => `
+    <div class="review-card">
+      <div class="review-card__header">
+        <div class="review-card__name">${r.name}</div>
+        ${starsHtml(r.rating)}
+        <div class="review-card__date">${r.date}</div>
+      </div>
+      ${r.text ? `<div class="review-card__text">${r.text}</div>` : ''}
+    </div>
+  `).join('')}</div>`;
+
+  // Обновляем рейтинг под заголовком товара
+  const ratingEl = document.getElementById('productRating');
+  if (ratingEl) {
+    const avg = getAverageRating(productId);
+    ratingEl.innerHTML = `${starsHtml(avg)} <span class="rating-count">${reviews.length} ${pluralRu(reviews.length, 'отзыв', 'отзыва', 'отзывов')}</span>`;
+  }
+}
+
+function initReviewForm(productId) {
+  const form = document.getElementById('reviewForm');
+  if (!form) return;
+
+  let selectedRating = 0;
+  const stars = document.querySelectorAll('.star-pick');
+
+  stars.forEach((star, idx) => {
+    star.addEventListener('mouseover', () => {
+      stars.forEach((s, i) => s.classList.toggle('hover', i <= idx));
+    });
+    star.addEventListener('mouseout', () => {
+      stars.forEach((s, i) => {
+        s.classList.remove('hover');
+        s.classList.toggle('selected', i < selectedRating);
+      });
+    });
+    star.addEventListener('click', () => {
+      selectedRating = idx + 1;
+      stars.forEach((s, i) => s.classList.toggle('selected', i < selectedRating));
+    });
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('reviewName').value.trim();
+    const text = document.getElementById('reviewText').value.trim();
+    if (!name) { alert('Введите ваше имя'); return; }
+    if (!selectedRating) { alert('Выберите оценку'); return; }
+
+    addProductReview(productId, { name, rating: selectedRating, text });
+    renderProductReviews(productId);
+
+    form.reset();
+    selectedRating = 0;
+    stars.forEach(s => s.classList.remove('selected', 'hover'));
+
+    const toast = document.getElementById('toast');
+    if (toast) {
+      toast.textContent = 'Отзыв добавлен!';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {

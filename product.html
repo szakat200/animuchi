@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/catalog.css" />
   <link rel="stylesheet" href="css/product.css" />
+  <link rel="stylesheet" href="css/reviews.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -25,7 +26,17 @@
         <a href="order.html" class="nav__link">Под заказ</a>
         <a href="contacts.html" class="nav__link">Контакты</a>
       </nav>
+      <form class="header-search-form" id="headerSearchForm">
+        <i class="fas fa-search search-form-icon"></i>
+        <input type="text" id="headerSearchInput" placeholder="Найти товар..." autocomplete="off" />
+        <button type="button" class="header-search__close" id="headerSearchClose" aria-label="Закрыть">
+          <i class="fas fa-times"></i>
+        </button>
+      </form>
       <div class="header__actions">
+        <button class="search-toggle" id="searchToggle" aria-label="Поиск">
+          <i class="fas fa-search"></i>
+        </button>
         <a href="cart.html" class="cart-btn">
           <i class="fas fa-shopping-cart"></i>
           <span class="cart-count" id="cartCount">0</span>
@@ -36,6 +47,10 @@
       </div>
     </div>
     <div class="mobile-nav" id="mobileNav">
+      <form class="mobile-search" id="mobileSearchForm">
+        <i class="fas fa-search"></i>
+        <input type="text" id="mobileSearchInput" placeholder="Найти товар..." autocomplete="off" />
+      </form>
       <a href="index.html" class="nav__link">Главная</a>
       <a href="catalog.html" class="nav__link">Каталог</a>
       <a href="order.html" class="nav__link">Под заказ</a>
@@ -62,6 +77,40 @@
         <div class="loading-state">Загрузка товара...</div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews-section section">
+    <div class="container">
+      <div class="reviews-header">
+        <h2>Отзывы</h2>
+      </div>
+      <div id="reviewsList"></div>
+      <div class="review-form-wrap">
+        <h3>Оставить отзыв</h3>
+        <form id="reviewForm">
+          <div class="form-group">
+            <label for="reviewName">Ваше имя</label>
+            <input type="text" id="reviewName" placeholder="Например: Алексей" />
+          </div>
+          <div class="form-group">
+            <label>Оценка</label>
+            <div class="star-input">
+              <span class="star-pick" data-val="1">★</span>
+              <span class="star-pick" data-val="2">★</span>
+              <span class="star-pick" data-val="3">★</span>
+              <span class="star-pick" data-val="4">★</span>
+              <span class="star-pick" data-val="5">★</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="reviewText">Комментарий (необязательно)</label>
+            <textarea id="reviewText" rows="3" placeholder="Расскажи о товаре..."></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary">Отправить отзыв</button>
+        </form>
+      </div>
     </div>
   </section>
 
@@ -94,7 +143,11 @@
   <div class="toast" id="toast"></div>
 
   <script src="js/products.js"></script>
+  <script src="js/reviews-utils.js"></script>
   <script src="js/main.js"></script>
   <script type="module" src="js/product.js"></script>
+  <script src="js/animations.js"></script>
 </body>
 </html>
+
+

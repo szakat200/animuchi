@@ -1,0 +1,87 @@
+/* ===== HERO ENTRANCE ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.88); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.hero__badge  { animation: fadeUp 0.55s cubic-bezier(0.22,1,0.36,1) 0.05s both; }
+.hero__title  { animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) 0.15s both; }
+.hero__desc   { animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) 0.28s both; }
+.hero__btns   { animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) 0.40s both; }
+
+/* Animated background shapes */
+.shape--1 { animation: floatA 8s ease-in-out infinite alternate; }
+.shape--2 { animation: floatB 10s ease-in-out infinite alternate; }
+.shape--3 { animation: floatA 7s ease-in-out 2s infinite alternate; }
+
+@keyframes floatA {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(-20px, 15px) scale(1.06); }
+}
+@keyframes floatB {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(15px, -20px) scale(0.95); }
+}
+
+/* ===== SCROLL REVEAL ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1),
+              transform 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== STAGGER DELAYS ===== */
+.reveal-d1 { transition-delay: 0.05s; }
+.reveal-d2 { transition-delay: 0.12s; }
+.reveal-d3 { transition-delay: 0.19s; }
+.reveal-d4 { transition-delay: 0.26s; }
+.reveal-d5 { transition-delay: 0.33s; }
+.reveal-d6 { transition-delay: 0.40s; }
+
+/* ===== RIPPLE ON BUTTONS ===== */
+.btn { overflow: hidden; }
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  transform: scale(0);
+  animation: rippleAnim 0.55s linear;
+  pointer-events: none;
+}
+@keyframes rippleAnim {
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* ===== CATALOG CARD STAGGER ENTER ===== */
+@keyframes cardEnter {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.product-card.entering {
+  animation: cardEnter 0.45s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* ===== COUNTER BADGE POP ===== */
+@keyframes badgePop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+.cart-count.pop,
+.wishlist-count.pop {
+  animation: badgePop 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}

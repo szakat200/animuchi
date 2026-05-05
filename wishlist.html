@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Корзина — Animuchi</title>
+  <title>Избранное — Animuchi</title>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/catalog.css" />
-  <link rel="stylesheet" href="css/cart.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -36,6 +35,10 @@
         <button class="search-toggle" id="searchToggle" aria-label="Поиск">
           <i class="fas fa-search"></i>
         </button>
+        <a href="wishlist.html" class="wishlist-btn-header active" id="wishlistBtnHeader" aria-label="Избранное">
+          <i class="fas fa-heart"></i>
+          <span class="wishlist-count" id="wishlistCount">0</span>
+        </a>
         <a href="cart.html" class="cart-btn">
           <i class="fas fa-shopping-cart"></i>
           <span class="cart-count" id="cartCount">0</span>
@@ -59,44 +62,21 @@
 
   <section class="page-hero">
     <div class="container">
-      <h1 class="page-hero__title">🛒 Корзина</h1>
-      <p class="page-hero__desc">Проверь заказ перед оформлением</p>
+      <h1 class="page-hero__title">Избранное</h1>
+      <p class="page-hero__desc" id="wishlistDesc">Товары, которые ты отложил</p>
     </div>
   </section>
 
-  <section class="cart-section section">
+  <section class="catalog-section section">
     <div class="container">
 
-      <div class="cart-empty" id="cartEmpty" style="display:none;">
-        <div class="cart-empty__icon">🛒</div>
-        <h3>Корзина пуста</h3>
-        <p>Добавь товары из каталога</p>
-        <a href="catalog.html" class="btn btn--primary">Перейти в каталог</a>
-      </div>
+      <div class="wishlist-grid" id="wishlistGrid"></div>
 
-      <div class="cart-layout" id="cartLayout">
-        <div class="cart-items" id="cartItems"></div>
-        <div class="cart-summary" id="cartSummary">
-          <h3 class="cart-summary__title">Итого</h3>
-          <div class="cart-summary__rows" id="summaryRows"></div>
-          <div class="cart-summary__total">
-            <span>К оплате:</span>
-            <span id="totalPrice">0 ₽</span>
-          </div>
-          <div class="cart-summary__delivery">
-            <i class="fas fa-truck"></i>
-            <span>Доставка рассчитывается при оформлении</span>
-          </div>
-          <a href="checkout.html" class="btn btn--primary btn--full" id="checkoutBtn">
-            <i class="fas fa-credit-card"></i> Оформить заказ
-          </a>
-          <a href="catalog.html" class="btn btn--outline btn--full" style="margin-top:10px;">
-            <i class="fas fa-arrow-left"></i> Продолжить покупки
-          </a>
-          <button class="cart-clear-btn" id="clearCartBtn">
-            <i class="fas fa-trash"></i> Очистить корзину
-          </button>
-        </div>
+      <div class="empty-state" id="wishlistEmpty" style="display:none;">
+        <div class="empty-state__icon">🤍</div>
+        <h3>Список пуст</h3>
+        <p>Добавляй товары из каталога нажав на ❤️</p>
+        <a href="catalog.html" class="btn btn--primary">Перейти в каталог</a>
       </div>
 
     </div>
@@ -129,11 +109,9 @@
 
   <div class="toast" id="toast"></div>
 
-  <script src="js/products.js"></script>
   <script src="js/main.js"></script>
-  <script src="js/cart.js"></script>
+  <script src="js/wishlist.js"></script>
   <script src="js/animations.js"></script>
 </body>
 </html>
-
 

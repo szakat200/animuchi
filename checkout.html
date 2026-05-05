@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
@@ -26,7 +26,17 @@
         <a href="order.html" class="nav__link">Под заказ</a>
         <a href="contacts.html" class="nav__link">Контакты</a>
       </nav>
+      <form class="header-search-form" id="headerSearchForm">
+        <i class="fas fa-search search-form-icon"></i>
+        <input type="text" id="headerSearchInput" placeholder="Найти товар..." autocomplete="off" />
+        <button type="button" class="header-search__close" id="headerSearchClose" aria-label="Закрыть">
+          <i class="fas fa-times"></i>
+        </button>
+      </form>
       <div class="header__actions">
+        <button class="search-toggle" id="searchToggle" aria-label="Поиск">
+          <i class="fas fa-search"></i>
+        </button>
         <a href="cart.html" class="cart-btn">
           <i class="fas fa-shopping-cart"></i>
           <span class="cart-count" id="cartCount">0</span>
@@ -37,6 +47,10 @@
       </div>
     </div>
     <div class="mobile-nav" id="mobileNav">
+      <form class="mobile-search" id="mobileSearchForm">
+        <i class="fas fa-search"></i>
+        <input type="text" id="mobileSearchInput" placeholder="Найти товар..." autocomplete="off" />
+      </form>
       <a href="index.html" class="nav__link">Главная</a>
       <a href="catalog.html" class="nav__link">Каталог</a>
       <a href="order.html" class="nav__link">Под заказ</a>
@@ -231,24 +245,12 @@
     </div>
   </section>
 
-  <!-- МОДАЛКА УСПЕХА -->
-  <div class="success-modal" id="successModal">
-    <div class="success-modal__box">
-      <div class="success-modal__icon">🎉</div>
-      <h2>Заказ оформлен!</h2>
-      <p>Спасибо за покупку в <strong>Animuchi</strong>!</p>
-      <p class="success-modal__sub">Мы свяжемся с тобой по телефону в ближайшее время для подтверждения заказа.</p>
-      <div class="success-modal__num">Номер заказа: <strong id="orderNum"></strong></div>
-      <a href="catalog.html" class="btn btn--primary btn--full" style="margin-top:20px;">
-        Продолжить покупки
-      </a>
-    </div>
-  </div>
-  <div class="modal-overlay" id="modalOverlay"></div>
-
   <div class="toast" id="toast"></div>
 
   <script src="js/main.js"></script>
   <script type="module" src="js/checkout.js"></script>
+  <script src="js/animations.js"></script>
 </body>
 </html>
+
+

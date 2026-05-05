@@ -55,16 +55,25 @@ function renderProducts() {
   list.forEach(p => {
     const card = document.createElement('div');
     card.className = 'product-card';
+    const inWishlist = isInWishlist(p.id);
     card.innerHTML = `
+      <button class="wishlist-card-btn ${inWishlist ? 'active' : ''}" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}" data-emoji="${p.emoji || '📦'}" data-photo="${p.photoUrl || ''}" data-category="${p.category}" aria-label="В избранное">
+        <i class="fas fa-heart"></i>
+      </button>
       <a href="product.html?id=${p.id}" class="product-card__link">
       <div class="product-card__img">
         ${p.photoUrl
-          ? `<img src="${p.photoUrl}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;">`
+          ? `<img src="${p.photoUrl}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">`
           : `<span>${p.emoji}</span>`}
         ${p.badge ? `<span class="product-card__badge badge--${p.badge}">${badgeLabel(p.badge)}</span>` : ''}
       </div>
       <div class="product-card__body">
         <div class="product-card__cat">${CAT_LABELS[p.category] || p.category}</div>
+        ${(typeof getAverageRating === 'function' && getAverageRating(p.id) > 0) ? `
+          <div class="card-stars">
+            ${starsHtml(getAverageRating(p.id))}
+            <span class="rating-num">${getAverageRating(p.id).toFixed(1)}</span>
+          </div>` : ''}
         <div class="product-card__name">${p.name}</div>
         <div class="product-card__title">${p.title}</div>
       </div>
@@ -80,6 +89,26 @@ function renderProducts() {
       </div>
     `;
     grid.appendChild(card);
+  });
+
+  // Анимация появления карточек
+  if (typeof animateCatalogCards === 'function') animateCatalogCards();
+
+  // Кнопки "В избранное"
+  grid.querySelectorAll('.wishlist-card-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const product = {
+        id: btn.dataset.id,
+        name: btn.dataset.name,
+        price: Number(btn.dataset.price),
+        emoji: btn.dataset.emoji,
+        photoUrl: btn.dataset.photo || null,
+        category: btn.dataset.category,
+      };
+      const added = toggleWishlist(product);
+      btn.classList.toggle('active', added);
+      showToast(added ? `«${product.name}» добавлен в избранное ❤️` : `«${product.name}» убран из избранного`);
+    });
   });
 
   // Кнопки "В корзину"
@@ -158,7 +187,7 @@ sortSelect && sortSelect.addEventListener('change', e => {
   renderProducts();
 });
 
-// Читаем параметр ?cat= из URL
+// Читаем параметры из URL
 const urlParams = new URLSearchParams(window.location.search);
 const catParam = urlParams.get('cat');
 if (catParam) {
@@ -166,6 +195,11 @@ if (catParam) {
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.cat === catParam);
   });
+}
+const searchParam = urlParams.get('search');
+if (searchParam) {
+  currentSearch = searchParam;
+  if (searchInput) searchInput.value = searchParam;
 }
 
 // Инициализация
