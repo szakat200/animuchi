@@ -15,13 +15,13 @@
 </head>
 <body>
   <h2>⛩ Загрузка реальных товаров в Firebase</h2>
-  <p>Нажми кнопку — все товары загрузятся в базу данных. Страницу не закрывай пока не появится "Готово!"</p>
-  <button id="seedBtn">🚀 Загрузить все товары</button>
+  <p>Нажми кнопку — старые товары удалятся и загрузятся новые с правильными фото. Страницу не закрывай пока не появится "Готово!"</p>
+  <button id="seedBtn">🚀 Очистить и загрузить все товары</button>
   <div id="log"></div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
     import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
     const firebaseConfig = {
@@ -386,8 +386,22 @@
         return;
       }
 
-      log(`Начинаю загрузку ${PRODUCTS.length} товаров...`);
+      // Удаляем все старые товары
+      log('🗑️ Удаляю старые товары...');
+      try {
+        const snap = await getDocs(collection(db, 'products'));
+        let deleted = 0;
+        for (const d of snap.docs) {
+          await deleteDoc(doc(db, 'products', d.id));
+          deleted++;
+        }
+        log(`✅ Удалено ${deleted} старых товаров`, 'ok');
+      } catch (e) {
+        log('⚠️ Ошибка при удалении: ' + e.message, 'err');
+      }
 
+      // Загружаем новые
+      log(`📦 Загружаю ${PRODUCTS.length} товаров...`);
       let ok = 0, fail = 0;
       for (const p of PRODUCTS) {
         try {
@@ -404,7 +418,8 @@
         }
       }
 
-      log(`<br><strong>Готово! Загружено: ${ok}, ошибок: ${fail}</strong>`, ok > 0 ? 'ok' : 'err');
+      log(`<br><strong>🎉 Готово! Загружено: ${ok}, ошибок: ${fail}</strong>`, ok > 0 ? 'ok' : 'err');
+      log(`<br>Открой каталог и проверь фотки!`);
     });
   </script>
 </body>
